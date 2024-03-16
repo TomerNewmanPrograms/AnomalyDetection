@@ -55,7 +55,7 @@ def collect_metrics():
 
 def send_data(data, topic):
     try:
-        producer.produce(topic, value=data.encode('utf-8'))
+        producer.produce(topic, value=data.encode("utf-8"))
         producer.flush()
         logger.info("message sent! - %s", data)
     except KafkaException as e:
