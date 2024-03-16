@@ -1,3 +1,4 @@
+import asyncio
 import json
 import logging
 import socket
@@ -23,7 +24,7 @@ logger = logging.getLogger(__name__)
 sleep = int(settings.intervals)
 
 
-def create_topic_if_not_exists(topic):
+async def create_topic_if_not_exists(topic):
     try:
         new_topic = NewTopic(topic=topic, num_partitions=1, replication_factor=1)
         admin_client.create_topics([new_topic])
@@ -32,7 +33,7 @@ def create_topic_if_not_exists(topic):
         logger.error(e)
 
 
-def list_known_topics():
+async def list_known_topics():
     try:
         topic_metadata = admin_client.list_topics()
         logger.info("Topics in the Kafka cluster:")
@@ -42,7 +43,7 @@ def list_known_topics():
         logger.error(e)
 
 
-def collect_metrics():
+async def collect_metrics():
     cpu_percent = psutil.cpu_percent(interval=1)
     memory_stats = psutil.virtual_memory()
 
@@ -53,7 +54,7 @@ def collect_metrics():
     }
 
 
-def send_data(data, topic):
+async def send_data(data, topic):
     try:
         producer.produce(topic, value=data.encode("utf-8"))
         producer.flush()
@@ -63,7 +64,7 @@ def send_data(data, topic):
         logger.error("Error, data is %s", data)
 
 
-def main():
+async def run_collector():
     while True:
         try:
             metrics = collect_metrics()
@@ -71,15 +72,10 @@ def main():
                 "id": settings.id,
                 "metrics": metrics,
             }
-            send_data(json.dumps(data_to_send), settings.topic)
+            await send_data(json.dumps(data_to_send), settings.topic)
             logger.info("sleep - %s", sleep)
-            time.sleep(sleep)
+            await asyncio.sleep(sleep)
         except KeyboardInterrupt as e:
             logger.error(e)
             break
 
-
-if __name__ == "__main__":
-    create_topic_if_not_exists(settings.topic)
-    list_known_topics()
-    main()
