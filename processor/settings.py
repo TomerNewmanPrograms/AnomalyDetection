@@ -3,10 +3,9 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    intervals: str = Field("5", env="INTERVALS")
     bootstrap_servers: str = Field("localhost:9092", env="BOOTSTRAP_SERVERS")
-    topic: str = Field("test", env="SEND_DATA_TOPIC")
-    id: str = Field("123", env="ID")
+    topics: str = Field("test", env="RECEIVE_DATA_TOPICS")
+    group_id: str = Field("group_test", env="GROUP_ID")
 
 
 settings = Settings()
