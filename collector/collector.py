@@ -2,7 +2,6 @@ import asyncio
 import json
 import logging
 import socket
-import time
 
 import psutil
 from confluent_kafka import Producer, KafkaException
@@ -14,8 +13,12 @@ from settings import settings
 conf = {
     "bootstrap.servers": settings.bootstrap_servers,
     "client.id": socket.gethostname(),
+    "security.protocol": "SASL_PLAINTEXT",  # Specify the SASL protocol
+    "sasl.mechanism": "PLAIN",  # Specify the SASL mechanism
+    "sasl.username": "user1",  # Your Kafka username
+    "sasl.password": "iKUpyEy1QY"  # Your Kafka password
 }
-admin_client = AdminClient({"bootstrap.servers": settings.bootstrap_servers})
+admin_client = AdminClient(conf)
 producer = Producer(conf)
 
 logging.basicConfig(level=logging.INFO)

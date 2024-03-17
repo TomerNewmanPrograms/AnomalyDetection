@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from collector.collector import create_topic_if_not_exists, list_known_topics, run_collector
+from collector import create_topic_if_not_exists, list_known_topics, run_collector
 from settings import settings
 import asyncio
 
