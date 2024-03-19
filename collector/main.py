@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from collector import create_topic_if_not_exists, list_known_topics, run_collector
+from .collector import create_topic_if_not_exists, list_known_topics, run_collector
 from settings import settings
 import asyncio
 
@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 async def greeting():
-    return {"message": "Hello World!"}
+    return {"message": "Hello App!"}
 
 
 @app.get("/liveness")

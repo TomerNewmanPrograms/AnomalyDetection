@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+import os
 import socket
 
 import psutil
@@ -16,7 +17,7 @@ conf = {
     "security.protocol": "SASL_PLAINTEXT",  # Specify the SASL protocol
     "sasl.mechanism": "PLAIN",  # Specify the SASL mechanism
     "sasl.username": "user1",  # Your Kafka username
-    "sasl.password": "iKUpyEy1QY"  # Your Kafka password
+    "sasl.password": os.getenv("password")  # Your Kafka password
 }
 admin_client = AdminClient(conf)
 producer = Producer(conf)

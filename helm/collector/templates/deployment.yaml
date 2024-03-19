@@ -35,6 +35,17 @@ spec:
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "collector:latest"
+          env:
+          - name: KAFKA_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: my-kafka-secret
+                key: username
+          - name: KAFKA_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-kafka-secret
+                key: password
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
