@@ -1,0 +1,81 @@
+/* AnomaliesPage.module.css */
+:root {
+    --primary-color: #5b8bf7;
+    --secondary-color: #ff5f5f;
+    --background-color: #f0f4f8;
+    --text-color: #333;
+    --text-secondary-color: #555;
+    --border-radius: 8px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+li {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.detail {
+    color: var(--text-secondary-color);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.detail strong {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .detail {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    ul {
+        grid-template-columns: 1fr;
+    }
+}
